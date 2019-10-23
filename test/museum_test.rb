@@ -12,6 +12,8 @@ class MuseumTest < Minitest::Test
     @imax = Exhibit.new("IMAX", 15)
     @bob = Patron.new('Bob', 20)
     @sally = Patron.new('Sally', 20)
+    @tj = Patron.new("TJ", 7)
+    @morgan = Patron.new("Morgan", 15)
   end
 
   def test_existence
@@ -78,4 +80,34 @@ class MuseumTest < Minitest::Test
 
     assert_equal interest_list, @dmns.patrons_by_exhibit_interest
   end
+
+  def test_patrons_of_exhibits
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+
+    @dmns.generate_exhibits
+
+    @bob.add_interest("Dead Sea Scrolls")
+    @bob.add_interest("Gems and Minerals")
+    @sally.add_interest("Dead Sea Scrolls")
+    @tj.add_interest("IMAX")
+    @tj.add_interest("Dead Sea Scrolls")
+    @morgan.add_interest("Gems and Minerals")
+    @morgan.add_interest("Dead Sea Scrolls")
+
+    @dmns.admit(@bob)
+    @dmns.admit(@sally)
+    @dmns.admit(@tj)
+    @dmns.admit(@morgan)
+
+    patrons_of_exhibits = {
+      @gems_and_minerals => [@bob, @morgan],
+      @dead_sea_scrolls => [@bob, @sally],
+      @imax => []
+    }
+
+    assert_equal patrons_of_exhibits, @dmns.patrons_of_exhibits
+  end
+
 end
