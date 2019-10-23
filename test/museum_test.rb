@@ -52,7 +52,7 @@ class MuseumTest < Minitest::Test
 
     @bob.add_interest("Dead Sea Scrolls")
     @bob.add_interest("Gems and Minerals")
-    @sally.add_interest("Dead Sea Scrolls")
+    @sally.add_interest("IMAX")
 
     assert_equal [@gems_and_minerals, @dead_sea_scrolls], @dmns.recommend_exhibits(@bob)
     assert_equal [@imax], @dmns.recommend_exhibits(@sally)
@@ -77,5 +77,5 @@ class MuseumTest < Minitest::Test
     }
 
     assert_equal interest_list, @dmns.patrons_by_exhibit_interest
-
+  end
 end
