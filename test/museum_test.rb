@@ -1,6 +1,8 @@
 require 'minitest'
 require 'minitest/autorun'
 require_relative '../lib/museum'
+require_relative '../lib/exhibit'
+require_relative '../lib/patron'
 
 class MuseumTest < Minitest::Test
   def setup
@@ -39,6 +41,6 @@ class MuseumTest < Minitest::Test
 
     assert_equal [@gems_and_minerals, @dead_sea_scrolls], @dmns.recommend_exhibits(@bob)
     assert_equal [@imax], @dmns.reccomend_exhibits(@sally)
-  end   
+  end
 
 end
